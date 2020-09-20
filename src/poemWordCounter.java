@@ -12,7 +12,10 @@ public class poemWordCounter {
 
         //Separates the poem portion of the page and turns it into a String
         Elements poemBody = Poem.select("p");
-        String lit = new String(String.valueOf(poemBody));
+        Elements title = Poem.select("h1");
+        Elements by = Poem.select("h4");
+        Elements poet = Poem.select("h3");
+        String lit = new String(String.valueOf(title) + String.valueOf(by) + String.valueOf(poet) + String.valueOf(poemBody));
 
         //Removes Remaining HTML tags and punctuation impeding word counting and then makes the string all lower case.
         String iter1 = lit.replaceAll("<br>", "");
@@ -30,11 +33,18 @@ public class poemWordCounter {
         String iter13 = iter12.replaceAll(";", "");
         String iter14 = iter13.replaceAll("\\.", "");
         String iter15 = iter14.replaceAll("'", "");
-        String iter16 = iter15.toLowerCase();
+        String iter16 = iter15.replaceAll("<h1 align=center>", "");
+        String iter17 = iter16.replaceAll("<h4 align=center>", "");
+        String iter18 = iter17.replaceAll("<h3 align=center>", "");
+        String iter19 = iter18.replaceAll("</h1>", "");
+        String iter20 = iter19.replaceAll("</h4>", "");
+        String iter21 = iter20.replaceAll("</h3>", "");
+        String iter22 = iter21.replaceAll("&#x2014", "");
+        String iter23 = iter22.toLowerCase();
 
         //Invokes the word counting method to count the words of the newly transformed string.
         poemWordCounter countWordTest = new poemWordCounter();
-        countWordTest.wordCounter(iter16);
+        countWordTest.wordCounter(iter23);
 
     }
 
